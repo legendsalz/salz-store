@@ -1,39 +1,320 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> <!-- Tambah max-scale agar tidak bisa diperbesar berlebih -->
-    <title>Salz Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salz Store | Digital Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #8a2be2;
+            --accent: #00d4ff;
+            --bg-dark: #0a0514;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial Black', Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Background yang menyatu sempurna dengan tema */
         body {
-            background: #120A24;
-            background-image: url('https://files.catbox.moe/r3148e.jpg');
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
-            position: relative;
+            background: var(--bg-dark);
+            color: white;
+            line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 160px;
-            /* Tambah scroll smooth untuk navigasi antar bagian */
             scroll-behavior: smooth;
         }
+
+        /* --- VIDEO BACKGROUND --- */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.4; /* Atur kegelapan video di sini */
+        }
+
+        /* Overlay Gelap agar Teks Terbaca */
         body::before {
             content: '';
             position: fixed;
             top: 0;
             left: 0;
-            width
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10, 5, 20, 0.6) 0%, rgba(10, 5, 20, 0.9) 100%);
+            z-index: -1;
         }
-        body::before {
-            content: '';
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            background: rgba(10, 5, 20, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        /* --- HERO & TYPING ANIMATION --- */
+        .hero {
+            padding: 160px 5% 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            border-right: 3px solid var(--primary);
+            animation: typing 3.5s steps(30, end), blink 0.7s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+
+        .hero p {
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* --- PRODUCT GRID --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .grid-produk {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px 0;
+        }
+
+        .produk-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .produk-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+        }
+
+        .produk-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), #6a1b9a);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        /* --- MUSIC BUTTON --- */
+        #musicToggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            margin: 60px 0 30px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(10, 5, 20, 0.9);
+            margin-top: 60px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <video autoplay loop muted playsinline>
+            <source src="https://files.catbox.moe/ggh0j2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">Salz Store</div>
+        <div class="nav-links">
+            <a href="#beranda">Home</a>
+            <a href="#produk">Produk</a>
+            <a href="#tentang">Tentang</a>
+        </div>
+    </nav>
+
+    <button id="musicToggle" onclick="toggleMusic()">🎵</button>
+
+    <section class="hero" id="beranda">
+        <h1>SALZ STORE</h1>
+        <p>Solusi Produk Digital Premium, Terpercaya, dan Berkualitas.</p>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" id="produk">Produk Kami</h2>
+        <div class="grid-produk">
+            <div class="produk-card">
+                <img src="https://files.catbox.moe/re3x52.jpg" alt="WA Bot">
+                <h3>🤖 SEWA BOT WA</h3>
+                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 100.000 (Permanen)</p>
+                <a href="https://wa.me/6285113232155?text=Sewa+Bot" class="btn-buy">Beli Via WA</a>
+            </div>
+
+            <div class="produk-card">
+                <img src="https://files.catbox.moe/1nijpa.jpg" alt="Nokos">
+                <h3>💻 NOKOS INDO</h3>
+                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 7.000</p>
+                <a href="https://wa.me/6285113232155?text=Beli+Nokos" class="btn-buy">Beli Via WA</a>
+            </div>
+
+            <div class="produk-card">
+                <img src="https://files.catbox.moe/t877l0.jpg" alt="Script">
+                <h3>🤖 SCRIPT ASSISTANT</h3>
+                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 80.000</p>
+                <a href="https://wa.me/6285113232155?text=Beli+Script" class="btn-buy">Beli Via WA</a>
+            </div>
+        </div>
+    </div>
+
+    <footer id="tentang">
+        <p>&copy; 2026 Salz Store. Semua Hak Dilindungi.</p>
+        <p>Hubungi Kami: 6285113232155</p>
+    </footer>
+
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/5erjzj.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                btn.innerHTML = "🎵";
+            } else {
+                music.play();
+                btn.innerHTML = "🔊";
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
             position: fixed;
             top: 0;
             left: 0;
