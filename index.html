@@ -255,6 +255,271 @@
         </div>
 
         <div class="produk-card">
+            <img src="https://files.catbox.moe/1nijpa.jpg" alt="Nokos Indo" class="produk-foto">
+            <div class="produk-nama">💻 NOKOS INDO</div>
+            <div class="produk-harga">Rp 7.000</div>
+            <a href="https://wa.me/6285113232155?text=saya+mau+beli+nokos" class="tombol-beli">💬 Beli Via WhatsApp</a>
+        </div>
+
+        <div class="produk-card">
+            <img src="https://files.catbox.moe/w3yayx.jpg" alt="Channel WhatsApp" class="produk-foto">
+            <div class="produk-nama">📢 CHANNEL WHATSAPP</div>
+            <div class="produk-harga">💬 TERGANTUNG PENGIKUT</div>
+            <a href="https://wa.me/6285113232155?text=saya+mau+beli+chanel+WhatsApp" class="tombol-beli">💬 Beli Via WhatsApp</a>
+        </div>
+    </section>
+
+    <footer id="kontak">
+        <div>SALZ STORE</div>
+        <div>📞 WA: 6285113232155</div>
+        <div>&copy; 2026 - Semua Hak Dilindungi</div>
+    </footer>
+
+    <audio id="musik" preload="auto" loop>
+        <source src="https://files.catbox.moe/5erjzj.mp3" type="audio/mpeg">
+    
+
+    <script>
+        const musik = document.getElementById('musik');
+        let sedangMain = false;
+
+        function putarAtauJeda() {
+            if(sedangMain) {
+                musik.pause();
+                document.getElementById('tombolMusik').innerHTML = "🎵";
+            } else {
+                musik.play().then(() => {
+                    document.getElementById('tombolMusik').innerHTML = "🔊";
+                }).catch(() => {
+                    alert("Silakan aktifkan suara di perangkatmu untuk memutar musik!");
+                });
+            }
+            sedangMain = !sedangMain;
+        }
+    </script>
+</body>
+</html>
+        /* Container sticky dengan ukuran pas */
+        .sticky-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 8px;
+            background: rgba(18, 10, 36, 0.95); /* Background lebih pekat agar tidak transparan */
+        }
+
+        /* Header rapi tidak terlalu besar */
+        header {
+            background: rgba(28, 15, 50, 0.95);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            margin-bottom: 8px;
+            position: relative;
+        }
+        header h1 {
+            text-shadow: 0 0 6px rgba(120, 50, 200, 0.6);
+            letter-spacing: 1px;
+            font-size: 1.5rem;
+        }
+
+        /* Menu navigasi lebih kecil dan tidak menutupi */
+        nav {
+            background: rgba(28, 15, 50, 0.95);
+            padding: 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: rgba(120, 50, 200, 0.2);
+            box-shadow: 0 0 8px rgba(120, 50, 200, 0.5);
+        }
+
+        /* Tombol Musik pas di pojok */
+        #tombolMusik {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(120, 50, 200, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(120, 50, 200, 0.8);
+            box-shadow: 0 0 8px rgba(120, 50, 200, 0.5);
+            cursor: pointer;
+        }
+
+        /* Bagian Beranda SEPENUHNYA TERLIHAT */
+        .hero {
+            background: rgba(28, 15, 50, 0.9);
+            color: white;
+            padding: 1.5rem;
+            margin: 0 15px 15px 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            text-align: center;
+            position: relative; /* Agar tidak tertutupi elemen lain */
+            z-index: 1;
+        }
+        .hero h1 {
+            text-shadow: 0 0 6px rgba(120, 50, 200, 0.6);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 0.9rem;
+        }
+
+        /* Bagian Tentang Kami */
+        #tentang {
+            background: rgba(28, 15, 50, 0.9);
+            color: white;
+            padding: 1.5rem;
+            margin: 0 15px 15px 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            text-align: center;
+        }
+        #tentang h2 {
+            text-shadow: 0 0 6px rgba(120, 50, 200, 0.6);
+            margin-bottom: 0.8rem;
+        }
+        #tentang p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Bagian Produk */
+        .produk-section {
+            margin: 0 15px;
+        }
+        .produk-section h2 {
+            background: rgba(28, 15, 50, 0.9);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            text-shadow: 0 0 6px rgba(120, 50, 200, 0.6);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .produk-card {
+            background: rgba(28, 15, 50, 0.9);
+            color: white;
+            padding: 1.2rem;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            text-align: center;
+        }
+        .produk-foto {
+            width: 75%;
+            max-height: 180px;
+            margin: 0 auto 1rem auto;
+            display: block;
+            border: 1px solid rgba(120, 50, 200, 0.6);
+            box-shadow: 0 0 8px rgba(120, 50, 200, 0.3);
+        }
+        .produk-nama {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 4px rgba(120, 50, 200, 0.6);
+        }
+        .produk-harga {
+            color: #ff8888;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 4px #ff4444;
+        }
+        .tombol-beli {
+            background: rgba(120, 50, 200, 0.8);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .tombol-beli:hover {
+            background: rgba(120, 50, 200, 1);
+            box-shadow: 0 0 8px rgba(120, 50, 200, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(28, 15, 50, 0.9);
+            color: white;
+            padding: 1rem;
+            margin: 0 15px 15px 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(120, 50, 200, 0.4);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sticky-wrapper">
+        <header>
+            <h1>SALZ STORE</h1>
+            <div id="tombolMusik" onclick="putarAtauJeda()">🎵</div>
+        </header>
+
+        <nav>
+            <a href="#beranda" class="nav-link">🏠 BERANDA</a>
+            <a href="#produk" class="nav-link">🛒 PRODUK</a>
+            <a href="#tentang" class="nav-link">ℹ️ TENTANG KAMI</a>
+            <a href="#kontak" class="nav-link">📞 KONTAK</a>
+        </nav>
+    </div>
+
+    <!-- Bagian Beranda sekarang sepenuhnya terlihat -->
+    <section class="hero" id="beranda">
+        <h1>SELAMAT DATANG DI SALZ STORE</h1>
+        <p>Produk Berkualitas dengan Harga Terjangkau – Solusi Digital untuk Kamu!</p>
+    </section>
+
+    <section id="tentang">
+        <h2>TENTANG KAMI</h2>
+        <p>Salz Store adalah tempat belanja produk digital terpercaya. Kami berkomitmen memberikan layanan terbaik dan produk yang bermanfaat untuk mendukung aktivitas digital kamu!</p>
+    </section>
+
+    <section class="produk-section" id="produk">
+        <h2>📦 PRODUK KAMI</h2>
+        <div class="produk-card">
+            <img src="https://files.catbox.moe/re3x52.jpg" alt="Sewa Bot WhatsApp" class="produk-foto">
+            <div class="produk-nama">🤖 SEWA BOT WHATSAPP</div>
+            <div class="produk-harga">Rp 100.000 PERMANEN</div>
+            <a href="https://wa.me/6285113232155?text=saya+mau+sewa+bot+WhatsApp" class="tombol-beli">💬 Beli Via WhatsApp</a>
+        </div>
+
+        <div class="produk-card">
+            <img src="" alt="Key APK Bug Justin" class="produk-foto">
+            <div class="produk-nama">🔑 KEY APK BUG JUSTIN</div>
+            <div class="produk-harga">💬 CHAT HARGA</div>
+            <a href="https://wa.me/6285113232155?text=saya+mau+beli+key+apk+bug+justin" class="tombol-beli">💬 Beli Via WhatsApp</a>
+        </div>
+
+        <div class="produk-card">
             <img src="https://files.catbox.moe/w3yayx.jpg" alt="Nokos Indo" class="produk-foto">
             <div class="produk-nama">💻 NOKOS INDO</div>
             <div class="produk-harga">Rp 7.000</div>
