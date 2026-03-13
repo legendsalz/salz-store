@@ -50,10 +50,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            opacity: 0.4; /* Atur kegelapan video di sini */
+            opacity: 0.4;
         }
 
-        /* Overlay Gelap agar Teks Terbaca */
         body::before {
             content: '';
             position: fixed;
@@ -231,7 +230,6 @@
             to { opacity: 1; }
         }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.5rem; }
             .nav-links { display: none; }
@@ -265,6 +263,13 @@
     <div class="container">
         <h2 class="section-title" id="produk">Produk Kami</h2>
         <div class="grid-produk">
+            <div class="produk-card">
+                <img src="https://files.catbox.moe/w3yayx.jpg" alt="Channel WA">
+                <h3>📢 CHANNEL WHATSAPP</h3>
+                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 30.000 (1kp)</p>
+                <a href="https://wa.me/6285113232155?text=Beli+Channel+WA+1kp" class="btn-buy">Beli Via WA</a>
+            </div>
+
             <div class="produk-card">
                 <img src="https://files.catbox.moe/re3x52.jpg" alt="WA Bot">
                 <h3>🤖 SEWA BOT WA</h3>
@@ -314,5 +319,5 @@
         }
     </script>
 </body>
-    </html>
+        </html>
     
