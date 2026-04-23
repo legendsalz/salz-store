@@ -3,321 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salz Store | Digital Solution</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Salz Store | Digital Playground ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <style>
         :root {
-            --primary: #8a2be2;
-            --accent: #00d4ff;
-            --bg-dark: #0a0514;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #a855f7;
+            --accent: #22d3ee;
+            --bg: #05010d;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            cursor: none; /* Kita pakai custom cursor */
         }
 
         body {
-            background: var(--bg-dark);
-            color: white;
-            line-height: 1.6;
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            min-height: 200vh; /* Agar bisa scroll jauh */
         }
 
-        /* --- VIDEO BACKGROUND --- */
-        .video-container {
+        /* --- BACKGROUND & VIDEO --- */
+        .video-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            overflow: hidden;
-        }
-
-        .video-container video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             object-fit: cover;
             opacity: 0.4;
+            filter: saturate(1.5) contrast(1.2);
         }
 
-        body::before {
-            content: '';
+        .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(10, 5, 20, 0.6) 0%, rgba(10, 5, 20, 0.9) 100%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), transparent 0%, var(--bg) 80%);
             z-index: -1;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: exclusion;
+            transition: transform 0.1s;
+        }
+
+        #cursor-blur {
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            filter: blur(80px);
+            opacity: 0.3;
+            transition: 0.15s ease-out;
         }
 
         /* --- NAVBAR --- */
         .navbar {
             position: fixed;
-            top: 0; width: 100%;
-            z-index: 1000;
-            background: rgba(10, 5, 20, 0.8);
+            top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1000px;
+            padding: 15px 30px;
+            background: var(--glass);
             backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100;
         }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--accent); letter-spacing: 2px; }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: #ddd;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
-        }
-
-        /* --- HERO & TYPING ANIMATION --- */
+        /* --- HERO --- */
         .hero {
-            padding: 160px 5% 80px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 20px;
         }
 
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            border-right: 3px solid var(--primary);
-            animation: typing 3.5s steps(30, end), blink 0.7s step-end infinite;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        /* --- INTERACTIVE FLOATING ELEMENTS --- */
+        .floating-item {
+            position: absolute;
+            width: 60px; height: 60px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            animation: float 6s infinite ease-in-out;
+            user-select: none;
         }
 
-        @keyframes blink {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary) }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(20deg); }
         }
 
-        .hero p {
-            color: #ccc;
-            max-width: 600px;
-            margin: 0 auto;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        /* --- PRODUCT GRID --- */
+        /* --- CATALOG GRID --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 50px 20px;
         }
 
         .grid-produk {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 40px 0;
+            gap: 30px;
         }
 
-        .produk-card {
+        .card {
             background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
             padding: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        .produk-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
-        }
-
-        .produk-card img {
-            width: 100%;
-            height: 180px;
+        .card img {
+            width: 100%; height: 200px;
             object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            pointer-events: none;
         }
 
         .btn-buy {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary), #6a1b9a);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
+            display: block;
             width: 100%;
+            padding: 15px;
+            background: #fff;
+            color: #000;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 20px;
             transition: 0.3s;
         }
 
-        /* --- MUSIC BUTTON --- */
-        #musicToggle {
-            position: fixed;
+        .btn-buy:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.05) translateZ(20px);
+        }
+
+        /* --- SCROLL INDICATOR --- */
+        .scroll-down {
+            position: absolute;
             bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* --- MUSIC TOGGLE --- */
+        #musicBtn {
+            position: fixed;
+            bottom: 30px; left: 30px;
+            width: 60px; height: 60px;
+            background: var(--glass);
+            border: 1px solid var(--border);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            margin: 60px 0 30px;
-            font-size: 2rem;
-            text-transform: uppercase;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            background: rgba(10, 5, 20, 0.9);
-            margin-top: 60px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            color: #fff;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.5rem; }
-            .nav-links { display: none; }
+            #cursor, #cursor-blur { display: none; }
+            * { cursor: auto; }
         }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
-        <video autoplay loop muted playsinline>
-            <source src="https://files.catbox.moe/ggh0j2.mp4" type="video/mp4">
-        </video>
-    </div>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <video class="video-bg" autoplay loop muted playsinline>
+        <source src="https://files.catbox.moe/ggh0j2.mp4" type="video/mp4">
+    </video>
+    <div class="overlay" id="overlay"></div>
 
     <nav class="navbar">
-        <div class="logo">Salz Store</div>
-        <div class="nav-links">
-            <a href="#beranda">Home</a>
-            <a href="#produk">Produk</a>
-            <a href="#tentang">Tentang</a>
+        <div class="logo">SALZ STORE</div>
+        <div style="display: flex; gap: 15px;">
+            <span style="font-size: 0.8rem; opacity: 0.6;">Digital Solutions v2.0</span>
         </div>
     </nav>
 
-    <button id="musicToggle" onclick="toggleMusic()">🎵</button>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
 
-    <section class="hero" id="beranda">
-        <h1>SALZ STORE</h1>
-        <p>Solusi Produk Digital Premium, Terpercaya, dan Berkualitas.</p>
+    <section class="hero">
+        <div class="floating-item" style="top: 20%; left: 10%;">💎</div>
+        <div class="floating-item" style="top: 15%; right: 15%; animation-delay: 1s;">⚡</div>
+        <div class="floating-item" style="bottom: 20%; left: 20%; animation-delay: 2s;">🤖</div>
+        <div class="floating-item" style="top: 50%; right: 10%; animation-delay: 1.5s;">🔥</div>
+
+        <h1>BEYOND THE <br> <span style="-webkit-text-fill-color: transparent; -webkit-text-stroke: 1px #fff;">LIMITS.</span></h1>
+        <p style="color: #94a3b8; max-width: 500px;">Mainkan kursor Anda dan temukan produk digital terbaik yang pernah ada.</p>
+        
+        <div class="scroll-down">SCROLL DOWN</div>
     </section>
 
     <div class="container">
-        <h2 class="section-title" id="produk">Produk Kami</h2>
         <div class="grid-produk">
-            <div class="produk-card">
-                <img src="https://files.catbox.moe/w3yayx.jpg" alt="Channel WA">
-                <h3>📢 CHANNEL WHATSAPP</h3>
-                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 30.000 (1kp)</p>
-                <a href="https://wa.me/6285113232155?text=beli+Channel+WhatsApp+1kp" class="btn-buy">beli sekarang</a>
+            <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                <img src="https://files.catbox.moe/w3yayx.jpg" alt="WA Channel">
+                <h3>Channel WhatsApp</h3>
+                <p style="color: var(--accent);">Rp 30.000</p>
+                <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
-            <div class="produk-card">
-                <img src="https://files.catbox.moe/re3x52.jpg" alt="WA Bot">
-                <h3>🤖 SEWA BOT WA</h3>
-                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 100.000 (Permanen)</p>
-                <a href="https://wa.me/6285113232155?text=mau+sewa+bot" class="btn-buy">beli sekarang</a>
+            <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                <img src="https://files.catbox.moe/re3x52.jpg" alt="Sewa Bot">
+                <h3>Sewa Bot WA</h3>
+                <p style="color: var(--accent);">Rp 100.000</p>
+                <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
-            <div class="produk-card">
+            <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                 <img src="https://files.catbox.moe/1nijpa.jpg" alt="Nokos">
-                <h3>💻 NOKOS INDO</h3>
-                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 7.000</p>
-                <a href="https://wa.me/6285113232155?text=mau+beli+nokos" class="btn-buy">beli sekarang</a>
+                <h3>Nokos Indonesia</h3>
+                <p style="color: var(--accent);">Rp 7.000</p>
+                <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
-            <div class="produk-card">
+            <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                 <img src="https://files.catbox.moe/t877l0.jpg" alt="Script">
-                <h3>🤖 SCRIPT ASSISTANT</h3>
-                <p style="color: var(--accent); font-weight: bold; margin: 10px 0;">Rp 80.000</p>
-                <a href="https://wa.me/6285113232155?text=bang+salz+mau+beli+Script" class="btn-buy">beli sekarang</a>
+                <h3>Script Assistant</h3>
+                <p style="color: var(--accent);">Rp 80.000</p>
+                <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
         </div>
     </div>
 
-    <footer id="tentang">
-        <p>&copy; 2026 Salz Store. Semua Hak Dilindungi.</p>
-        <p>Hubungi Kami: 6285113232155</p>
+    <footer style="padding: 100px 20px; text-align: center; border-top: 1px solid var(--border);">
+        <p style="opacity: 0.5;">&copy; 2026 SALZ STORE. NO LIMITS.</p>
     </footer>
 
-    <audio id="bgMusic" loop>
-        <source src="https://files.catbox.moe/5erjzj.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic" loop src="https://files.catbox.moe/5erjzj.mp3"></audio>
 
     <script>
-        const music = document.getElementById('bgMusic');
-        const btn = document.getElementById('musicToggle');
-        let isPlaying = false;
+        // --- CUSTOM CURSOR LOGIC ---
+        const cursor = document.getElementById('cursor');
+        const blur = document.getElementById('cursor-blur');
+        const overlay = document.getElementById('overlay');
 
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                btn.innerHTML = "🎵";
-            } else {
-                music.play();
-                btn.innerHTML = "🔊";
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            blur.style.left = (e.clientX - 100) + 'px';
+            blur.style.top = (e.clientY - 100) + 'px';
+
+            // Effect on Overlay
+            const xPercent = (e.clientX / window.innerWidth) * 100;
+            const yPercent = (e.clientY / window.innerHeight) * 100;
+            overlay.style.setProperty('--x', `${xPercent}%`);
+            overlay.style.setProperty('--y', `${yPercent}%`);
+        });
+
+        // --- CLICK PARTICLE EFFECT ---
+        document.addEventListener('click', (e) => {
+            for(let i=0; i<8; i++) {
+                createParticle(e.clientX, e.clientY);
             }
+        });
+
+        function createParticle(x, y) {
+            const p = document.createElement('div');
+            p.style.position = 'fixed';
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            p.style.width = '5px';
+            p.style.height = '5px';
+            p.style.background = var(--accent);
+            p.style.borderRadius = '50%';
+            p.style.pointerEvents = 'none';
+            p.style.zIndex = '10000';
+            document.body.appendChild(p);
+
+            const destinationX = x + (Math.random() - 0.5) * 200;
+            const destinationY = y + (Math.random() - 0.5) * 200;
+
+            p.animate([
+                { opacity: 1, transform: 'translate(0, 0)' },
+                { opacity: 0, transform: `translate(${destinationX - x}px, ${destinationY - y}px)` }
+            ], { duration: 1000, easing: 'cubic-bezier(0, .9, .57, 1)' });
+
+            setTimeout(() => p.remove(), 1000);
+        }
+
+        // --- MUSIC ---
+        const audio = document.getElementById("bgMusic");
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) { audio.pause(); } else { audio.play(); }
             isPlaying = !isPlaying;
         }
+
+        // Initialize Tilt
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3,
+        });
     </script>
 </body>
-        </html>
+    </html>
     
