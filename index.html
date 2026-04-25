@@ -19,7 +19,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Kita pakai custom cursor */
+            cursor: none;
         }
 
         body {
@@ -27,7 +27,7 @@
             color: #fff;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            min-height: 200vh; /* Agar bisa scroll jauh */
+            min-height: 200vh;
         }
 
         /* --- BACKGROUND & VIDEO --- */
@@ -36,14 +36,14 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             object-fit: cover;
-            opacity: 0.4;
-            filter: saturate(1.5) contrast(1.2);
+            opacity: 0.8; 
+            filter: saturate(1.8) contrast(1.1);
         }
 
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), transparent 0%, var(--bg) 80%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(5, 1, 13, 0.6) 100%);
             z-index: -1;
         }
 
@@ -248,29 +248,29 @@
     <div class="container">
         <div class="grid-produk">
             <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
-                <img src="https://files.catbox.moe/w3yayx.jpg" alt="WA Channel">
-                <h3>Channel WhatsApp</h3>
+                <img src="https://cdn.yupra.my.id/yp/enhkfwwz.jpg" alt="chanel whatsapp">
+                <h3>chanel whatsapp</h3>
                 <p style="color: var(--accent);">Rp 30.000</p>
                 <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
             <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
-                <img src="https://files.catbox.moe/re3x52.jpg" alt="Sewa Bot">
-                <h3>Sewa Bot WA</h3>
+                <img src="https://cdn.yupra.my.id/yp/yqsuv9rf.jpg" alt="sewa bot whatsapp">
+                <h3>sewa bot whatsapp</h3>
                 <p style="color: var(--accent);">Rp 100.000</p>
                 <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
             <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
-                <img src="https://files.catbox.moe/1nijpa.jpg" alt="Nokos">
-                <h3>Nokos Indonesia</h3>
+                <img src="https://cdn.yupra.my.id/yp/42gm7xlh.jpg" alt="nokos Indonesia">
+                <h3>nokos indonesia</h3>
                 <p style="color: var(--accent);">Rp 7.000</p>
                 <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
 
             <div class="card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
-                <img src="https://qu.ax/GetdA" alt="Script">
-                <h3>Script Assistant</h3>
+                <img src="https://cdn.yupra.my.id/yp/iphxxuu1.jpg" alt="script salz assistant">
+                <h3>script assistant</h3>
                 <p style="color: var(--accent);">Rp 80.000</p>
                 <a href="https://wa.me/6285113232155" class="btn-buy">GRAB IT NOW</a>
             </div>
@@ -278,12 +278,40 @@
     </div>
 
     <footer style="padding: 100px 20px; text-align: center; border-top: 1px solid var(--border);">
-        <p style="opacity: 0.5;">&copy; 2026 SALZ STORE. NO LIMITS.</p>
+        <p style="opacity: 0.5;">&copy; 2026 SALZ STORE.</p>
     </footer>
 
-    <audio id="bgMusic" loop src="https://files.catbox.moe/5erjzj.mp3"></audio>
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/5erjzj.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
+        const audio = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        let isPlaying = false;
+
+        // Fungsi toggle utama
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerText = "🎵";
+            } else {
+                audio.play().catch(e => console.log("Menunggu interaksi user..."));
+                musicBtn.innerText = "🔊";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // PERBAIKAN: Memicu musik pada interaksi pertama pelanggan di halaman
+        document.addEventListener('click', function() {
+            if(!isPlaying) {
+                // Jangan paksa play di sini agar user tidak kaget, 
+                // tapi buka blokir autoplay browser
+                audio.load(); 
+            }
+        }, { once: true });
+
+
         // --- CUSTOM CURSOR LOGIC ---
         const cursor = document.getElementById('cursor');
         const blur = document.getElementById('cursor-blur');
@@ -292,22 +320,16 @@
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-            
             blur.style.left = (e.clientX - 100) + 'px';
             blur.style.top = (e.clientY - 100) + 'px';
-
-            // Effect on Overlay
             const xPercent = (e.clientX / window.innerWidth) * 100;
             const yPercent = (e.clientY / window.innerHeight) * 100;
             overlay.style.setProperty('--x', `${xPercent}%`);
             overlay.style.setProperty('--y', `${yPercent}%`);
         });
 
-        // --- CLICK PARTICLE EFFECT ---
         document.addEventListener('click', (e) => {
-            for(let i=0; i<8; i++) {
-                createParticle(e.clientX, e.clientY);
-            }
+            for(let i=0; i<8; i++) { createParticle(e.clientX, e.clientY); }
         });
 
         function createParticle(x, y) {
@@ -317,32 +339,20 @@
             p.style.top = y + 'px';
             p.style.width = '5px';
             p.style.height = '5px';
-            p.style.background = var(--accent);
+            p.style.background = 'var(--accent)';
             p.style.borderRadius = '50%';
             p.style.pointerEvents = 'none';
             p.style.zIndex = '10000';
             document.body.appendChild(p);
-
             const destinationX = x + (Math.random() - 0.5) * 200;
             const destinationY = y + (Math.random() - 0.5) * 200;
-
             p.animate([
                 { opacity: 1, transform: 'translate(0, 0)' },
                 { opacity: 0, transform: `translate(${destinationX - x}px, ${destinationY - y}px)` }
             ], { duration: 1000, easing: 'cubic-bezier(0, .9, .57, 1)' });
-
             setTimeout(() => p.remove(), 1000);
         }
 
-        // --- MUSIC ---
-        const audio = document.getElementById("bgMusic");
-        let isPlaying = false;
-        function toggleMusic() {
-            if (isPlaying) { audio.pause(); } else { audio.play(); }
-            isPlaying = !isPlaying;
-        }
-
-        // Initialize Tilt
         VanillaTilt.init(document.querySelectorAll(".card"), {
             max: 15,
             speed: 400,
@@ -351,5 +361,5 @@
         });
     </script>
 </body>
-    </html>
-    
+                    </html>
+                    
